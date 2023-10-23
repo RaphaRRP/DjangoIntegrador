@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Contato, Cliente, Endereco, Conta, Cartao, Movimentacao, Investimento, Emprestimo, EmpretimoParcela
+from .models import Contato, Cliente, Endereco, Conta, Cartao, Movimentacao, Investimento, Emprestimo, EmprestimoParcela
 
 class CLienteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,7 +8,7 @@ class CLienteSerializer(serializers.ModelSerializer):
             'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura', 'nome_razaoSocial', 'nomeSocial_fantasia', 'cnpj',
             'inscricao_estadual', 'inscricao_municipal', 'rg', 'cpf', 'cliente_tipo'
         ]
-    
+     
 
 class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,7 +26,7 @@ class ContatoSerializer(serializers.ModelSerializer):
         ]
 
 
-class SerializerConta(serializers.ModelSerializer):
+class ContaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conta
         fields = [
@@ -50,7 +50,7 @@ class MovimentacaoSerializer(serializers.ModelSerializer):
         ]
 
 
-class InvestimentosSerializers(serializers.ModelSerializer):
+class InvestimentoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Investimento
         fields = [
@@ -58,7 +58,7 @@ class InvestimentosSerializers(serializers.ModelSerializer):
         ]
 
 
-class EmprestimoSerializers(serializers.ModelSerializer):
+class EmprestimoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emprestimo
         fields = [
@@ -68,7 +68,7 @@ class EmprestimoSerializers(serializers.ModelSerializer):
 
 class EmprestimoParcelaSerializer(serializers.ModelSerializer):
     class Meta:
-        model = EmpretimoParcela
+        model = EmprestimoParcela
         fields = [
             'codigo', 'data_vencimento', 'valor_parcela', 'numero', 'data_pagamento', 'valor_pago', 'fk_codigo_emprestimo'
         ]

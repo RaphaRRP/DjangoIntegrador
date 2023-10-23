@@ -1,7 +1,9 @@
 from django.db import models
 
-
 class Cliente(models.Model):
+
+    CLIENTE_TIPO_OPCOES = [['pessoa_física', 'pessoa_física'],
+                            ['pessoa_jurídica', 'pessoa_jurídica']]
 
     #ID
     codigo = models.AutoField(primary_key=True) 
@@ -19,7 +21,7 @@ class Cliente(models.Model):
     inscricao_municipal = models.CharField(max_length=100)
     rg = models.CharField(max_length=15)
     cpf = models.CharField(max_length=15)
-    cliente_tipo = models.IntegerField()#choice
+    cliente_tipo = models.CharField(choices = CLIENTE_TIPO_OPCOES, max_length=47)
 
     class Meta:
         verbose_name = 'Cliente'
@@ -149,7 +151,7 @@ class Movimentacao(models.Model):
         verbose_name_plural = 'Movimentações'
 
     def __str__(self):
-        return self.codigo
+        return self.operacao
 
 
 
@@ -175,7 +177,7 @@ class Investimento(models.Model):
         verbose_name_plural = 'Investimentos'
 
     def __str__(self):
-        return self.codigo
+        return self.grauRisco
 
     
 class Emprestimo(models.Model):
@@ -200,10 +202,10 @@ class Emprestimo(models.Model):
         verbose_name_plural = 'Emprestimos'
 
     def __str__(self):
-        return self.codigo
+        return self.observacao
     
 
-class EmpretimoParcela(models.Model):
+class EmprestimoParcela(models.Model):
 
     #ID
     codigo = models.AutoField(primary_key=True) 
@@ -222,20 +224,3 @@ class EmpretimoParcela(models.Model):
     class Meta:
         verbose_name = 'Parcela'
         verbose_name_plural = 'Parcelas'
-
-    def __str__(self):
-        return self.codigo
-
-
-
-
-
-
-
-
-
-
-
-
-
-
