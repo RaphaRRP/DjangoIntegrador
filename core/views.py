@@ -8,7 +8,6 @@ from .serializers import CLienteSerializer, ContatoSerializer, EnderecoSerialize
 class ClientesAPIView(generics.ListCreateAPIView):
     queryset = Cliente.objects.all()
     serializer_class = CLienteSerializer
-    usuario_logado = False
 
 
 class ClienteAPIView(generics.RetrieveUpdateDestroyAPIView):
