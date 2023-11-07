@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ClienteAPIView, ClientesAPIView, ContatosAPIView, ContatoAPIView, EnderecosAPIView, EnderecoAPIView, ContasAPIView, ContaAPIView, CartoesAPIView, CartaoAPIView, MovimentacoesAPIView, MovimentacaoAPIView, InvestimentosAPIView, InvestimentoAPIView, EmprestimosAPIView, EmprestimoAPIView, EmpretimoParcelasAPIView, EmpretimoParcelaAPIView, ClassLogin
+from .views import ClienteAPIView, ClientesAPIView, ContatosAPIView, ContatoAPIView, EnderecosAPIView, EnderecoAPIView, ContasAPIView, ContaAPIView, CartoesAPIView, CartaoAPIView, MovimentacoesAPIView, MovimentacaoAPIView, InvestimentosAPIView, InvestimentoAPIView, EmprestimosAPIView, EmprestimoAPIView, EmpretimoParcelasAPIView, EmpretimoParcelaAPIView
 
 
 urlpatterns = [

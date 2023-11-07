@@ -4,10 +4,13 @@ from .models import Contato, Cliente, Endereco, Conta, Cartao, Movimentacao, Inv
 
 from .serializers import CLienteSerializer, ContatoSerializer, EnderecoSerializer, ContaSerializer, CartaoSerializer, MovimentacaoSerializer, InvestimentoSerializer, EmprestimoSerializer, EmprestimoParcelaSerializer
 
+from rest_framework.permissions import IsAuthenticated
+
 
 class ClientesAPIView(generics.ListCreateAPIView):
     queryset = Cliente.objects.all()
     serializer_class = CLienteSerializer
+    permission_classes = (IsAuthenticated,)
 
 
 class ClienteAPIView(generics.RetrieveUpdateDestroyAPIView):
