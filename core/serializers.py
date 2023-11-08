@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Contato, Cliente, Endereco, Conta, Cartao, Movimentacao, Investimento, Emprestimo, EmprestimoParcela
+from .models import *
 
 class CLienteSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class CLienteSerializer(serializers.ModelSerializer):
             'inscricao_estadual', 'inscricao_municipal', 'rg', 'cpf', 'cliente_tipo'
         ]
      
-
+"""
 class EnderecoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Endereco
@@ -32,7 +32,7 @@ class ContaSerializer(serializers.ModelSerializer):
         fields = [
             'codigo', 'agencia', 'numero', 'limite', 'tipo', 'ativa', 'fk_codigo_cliente'
         ]
-
+"""
 
 class CartaoSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,12 +1,10 @@
-from rest_framework import generics
-
-from .models import Contato, Cliente, Endereco, Conta, Cartao, Movimentacao, Investimento, Emprestimo, EmprestimoParcela
-
-from .serializers import CLienteSerializer, ContatoSerializer, EnderecoSerializer, ContaSerializer, CartaoSerializer, MovimentacaoSerializer, InvestimentoSerializer, EmprestimoSerializer, EmprestimoParcelaSerializer
-
+from rest_framework import generics, viewsets
 from rest_framework.permissions import IsAuthenticated
+from .models import *
+from .serializers import *
 
 
+"""
 class ClientesAPIView(generics.ListCreateAPIView):
     queryset = Cliente.objects.all()
     serializer_class = CLienteSerializer
@@ -86,5 +84,45 @@ class EmpretimoParcelasAPIView(generics.ListCreateAPIView):
     serializer_class = EmprestimoParcelaSerializer
 
 class EmpretimoParcelaAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = EmprestimoParcela.objects.all()
+    serializer_class = EmprestimoParcelaSerializer
+
+"""
+
+class ClienteViewSet(viewsets.ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = CLienteSerializer
+    #permission_classes = (IsAuthenticated,)
+"""
+#class ContatoViewSet(viewsets.ModelViewSet):
+    #queryset = Contato.objects.all()
+    #serializer_class = ContatoSerializer
+
+#class EnderecoViewSet(viewsets.ModelViewSet):
+    #queryset = Endereco.objects.all()
+    #serializer_class = EnderecoSerializer
+
+#class ContaViewSet(viewsets.ModelViewSet):
+    #queryset = Conta.objects.all()
+    #serializer_class = ContaSerializer
+"""
+
+class CartaoViewSet(viewsets.ModelViewSet):
+    queryset = Cartao.objects.all()
+    serializer_class = CartaoSerializer
+
+class MovimentacaoViewSet(viewsets.ModelViewSet):
+    queryset = Movimentacao.objects.all()
+    serializer_class = MovimentacaoSerializer
+
+class InvestimentoViewSet(viewsets.ModelViewSet):
+    queryset = Investimento.objects.all()
+    serializer_class = InvestimentoSerializer
+
+class EmprestimoViewSet(viewsets.ModelViewSet):
+    queryset = Emprestimo.objects.all()
+    serializer_class = EmprestimoSerializer
+
+class EmpretimoParcelaViewSet(viewsets.ModelViewSet):
     queryset = EmprestimoParcela.objects.all()
     serializer_class = EmprestimoParcelaSerializer

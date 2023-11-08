@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Contato, Cliente, Endereco, Conta, Cartao, Movimentacao, Investimento, Emprestimo, EmprestimoParcela
+from .models import *
 
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
@@ -7,6 +7,7 @@ class ClienteAdmin(admin.ModelAdmin):
             'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura', 'nome_razaoSocial', 'nomeSocial_fantasia', 'cnpj','inscricao_estadual', 'inscricao_municipal', 'rg', 'cpf', 'cliente_tipo'
         ]
 
+"""
 @admin.register(Endereco)
 class EnderecoAdmin(admin.ModelAdmin):
     list_display = [
@@ -24,6 +25,7 @@ class ContaAdmin(admin.ModelAdmin):
     list_display = [
             'codigo', 'agencia', 'numero', 'limite', 'tipo', 'ativa', 'fk_codigo_cliente'
         ]
+"""
     
 @admin.register(Cartao)
 class CartaoAdmin(admin.ModelAdmin):

@@ -14,23 +14,30 @@ class Cliente(models.Model):
     senha = models.IntegerField()
     data_nascimento = models.DateField()
     data_abertura = models.DateField()
-    nome_razaoSocial = models.CharField(max_length=100)
+    #nome_razaoSocial = models.CharField(max_length=100)
     nomeSocial_fantasia = models.CharField(max_length=100)
-    cnpj = models.CharField(max_length=15)
-    inscricao_estadual = models.CharField(max_length=100)
-    inscricao_municipal = models.CharField(max_length=100)
+    #cnpj = models.CharField(max_length=15)
+    #inscricao_estadual = models.CharField(max_length=100)
+    #inscricao_municipal = models.CharField(max_length=100)
     rg = models.CharField(max_length=15)
-    cpf = models.CharField(max_length=15)
+    cpf_cnpj = models.CharField(max_length=15)
     cliente_tipo = models.CharField(choices = CLIENTE_TIPO_OPCOES, max_length=47)
+
+    cep = models.CharField(max_length=10)
+
+    numero = models.CharField(max_length=15)
+
+    email = models.EmailField(max_length=50)
 
     class Meta:
         verbose_name = 'Cliente'
         verbose_name_plural = 'CLientes'
 
     def __str__(self):
-        return self.nomeSocial_fantasia
+        return self.codigo
 
 
+"""
 class Endereco(models.Model):
     
     #ID
@@ -53,6 +60,7 @@ class Endereco(models.Model):
     def __str__(self):
         return self.cep
 
+
     
 class Contato(models.Model):
 
@@ -60,9 +68,9 @@ class Contato(models.Model):
     codigo = models.AutoField(primary_key=True) 
 
     #...
-    observacao = models.CharField(max_length=50)
+    #observacao = models.CharField(max_length=50)
     email = models.EmailField(max_length=50)
-    ramal = models.CharField(max_length=10)
+    #ramal = models.CharField(max_length=10)
     numero = models.CharField(max_length=15)
 
     #FK
@@ -76,17 +84,18 @@ class Contato(models.Model):
         return self.numero
 
 
+
 class Conta(models.Model):
 
     #ID
     codigo = models.AutoField(primary_key=True) 
 
     #...
-    agencia = models.CharField(max_length=10)
-    numero = models.CharField(max_length=20)
-    limite = models.IntegerField()
-    tipo = models.CharField(max_length=100)  #choice
-    ativa = models.BooleanField()
+    agencia = models.CharField(max_length=10) #choice
+    #numero = models.CharField(max_length=20)
+    #limite = models.IntegerField()
+    #tipo = models.CharField(max_length=100)  #choice
+    #ativa = models.BooleanField()
 
     #FK
     fk_codigo_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
@@ -96,9 +105,9 @@ class Conta(models.Model):
         verbose_name_plural = 'Contas'
 
     def __str__(self):
-        return self.numero
+        return self.codigo
 
-"""
+
 class MantemClienteConta(models.Model):
 
     #FK
@@ -115,14 +124,14 @@ class Cartao(models.Model):
 
 
     #...
-    situacao = models.CharField(max_length=20)#choice
+    #situacao = models.CharField(max_length=20)#choice
     bandeira = models.CharField(max_length=20)#choice
-    numero = models.CharField(max_length=30)
-    cvv = models.CharField(max_length=5)
+    #numero = models.CharField(max_length=30)
+    #cvv = models.CharField(max_length=5)
     validade = models.DateField()
 
     #FK
-    fk_codigo_conta = models.ForeignKey(Conta, on_delete=models.CASCADE)
+    Codigo_Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Cartao'
@@ -144,7 +153,7 @@ class Movimentacao(models.Model):
     valor = models.DecimalField(decimal_places=2, max_digits=20)
 
     #FK
-    fk_codigo_cartao = models.ForeignKey(Cartao, on_delete=models.CASCADE)
+    Codigo_Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Movimentação'
@@ -162,22 +171,22 @@ class Investimento(models.Model):
 
     #...
     grauRisco = models.CharField(max_length=5)#choice
-    finalizado = models.BooleanField()
+    #finalizado = models.BooleanField()
     rentabilidade = models.DecimalField(decimal_places=2, max_digits=20)
-    aporte = models.DecimalField(decimal_places=2, max_digits=20)
-    tipo = models.CharField(max_length=30)#choice
-    prazo = models.CharField(max_length=20)
-    taxa_administracao = models.DecimalField(decimal_places=2, max_digits=20)
+    #aporte = models.DecimalField(decimal_places=2, max_digits=20)
+    #tipo = models.CharField(max_length=30)#choice
+    #prazo = models.CharField(max_length=20)
+    #taxa_administracao = models.DecimalField(decimal_places=2, max_digits=20)
 
     #FK
-    fk_codigo_conta = models.ForeignKey(Conta, on_delete=models.CASCADE)
+    Codigo_Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Investimento'
         verbose_name_plural = 'Investimentos'
 
     def __str__(self):
-        return self.grauRisco
+        return self.codigo
 
     
 class Emprestimo(models.Model):
@@ -188,21 +197,21 @@ class Emprestimo(models.Model):
     #...
     juros = models.DecimalField(decimal_places=2, max_digits=20)
     numero_parcela = models.IntegerField()
-    data_solicitacao = models.DateField()
-    data_aprovacao = models.DateField()
-    aprovado = models.BooleanField()
+    #data_solicitacao = models.DateField()
+    #data_aprovacao = models.DateField()
+    #aprovado = models.BooleanField()
     valor_solicitado = models.DecimalField(decimal_places=2, max_digits=20)
-    observacao = models.CharField(max_length=200)
+    #observacao = models.CharField(max_length=200)
 
     #FK
-    fk_codigo_conta = models.ForeignKey(Conta, on_delete=models.CASCADE)
+    Codigo_Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Emprestimo'
         verbose_name_plural = 'Emprestimos'
 
     def __str__(self):
-        return self.observacao
+        return self.codigo
     
 
 class EmprestimoParcela(models.Model):
@@ -214,12 +223,13 @@ class EmprestimoParcela(models.Model):
     #...
     data_vencimento = models.DateField()
     valor_parcela = models.DecimalField(decimal_places=2, max_digits=20)
-    numero = models.IntegerField()
-    data_pagamento = models.DateField()
-    valor_pago = models.DecimalField(decimal_places=2, max_digits=20)
+    #numero = models.IntegerField()
+    #data_pagamento = models.DateField()
+    #valor_pago = models.DecimalField(decimal_places=2, max_digits=20)
+    Pago = models.BooleanField()
 
     #FK
-    fk_codigo_emprestimo = models.ForeignKey(Emprestimo, on_delete=models.CASCADE)
+    Codigo_Emprestimo = models.ForeignKey(Emprestimo, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Parcela'

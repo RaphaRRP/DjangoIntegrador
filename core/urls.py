@@ -1,38 +1,48 @@
 from django.urls import path
-from .views import ClienteAPIView, ClientesAPIView, ContatosAPIView, ContatoAPIView, EnderecosAPIView, EnderecoAPIView, ContasAPIView, ContaAPIView, CartoesAPIView, CartaoAPIView, MovimentacoesAPIView, MovimentacaoAPIView, InvestimentosAPIView, InvestimentoAPIView, EmprestimosAPIView, EmprestimoAPIView, EmpretimoParcelasAPIView, EmpretimoParcelaAPIView
+from rest_framework.routers import SimpleRouter
+from .views import *
 
 
+router = SimpleRouter()
+router.register('cliente', ClienteViewSet)
+#router.register('contato', ContatoViewSet)
+#router.register('endereco', EnderecoViewSet)
+#router.register('conta', ContaViewSet)
+router.register('movimentacao', MovimentacaoViewSet)
+router.register('investimento', InvestimentoViewSet)
+router.register('emprestimo', EmprestimoViewSet)
+router.register('parcela', EmpretimoParcelaViewSet)
+
+"""
 urlpatterns = [
-    path('cliente/', ClientesAPIView.as_view(), name='clientes'),
-    path('cliente/<int:pk>', ClienteAPIView.as_view(), name='cliente'),
+    path('cliente/', views.ClientesAPIView.as_view(), name='clientes'),
+    path('cliente/<int:pk>', views.ClienteAPIView.as_view(), name='cliente'),
 
-    path('contato/', ContatosAPIView.as_view(), name='contatos'),
-    path('contato/<int:pk>', ContatoAPIView.as_view(), name='contato'),
+    path('contato/', views.ContatosAPIView.as_view(), name='contatos'),
+    path('contato/<int:pk>', views.ContatoAPIView.as_view(), name='contato'),
 
-    path('endereco/', EnderecosAPIView.as_view(), name='enderecos'),
-    path('endereco/<int:pk>', EnderecoAPIView.as_view(), name='endereco'),
+    path('endereco/', views.EnderecosAPIView.as_view(), name='enderecos'),
+    path('endereco/<int:pk>', views.EnderecoAPIView.as_view(), name='endereco'),
 
-    path('conta/', ContasAPIView.as_view, name='contas'),
-    path('conta/<int:pk>', ContaAPIView.as_view, name='conta'),
+    path('conta/', views.ContasAPIView.as_view, name='contas'),
+    path('conta/<int:pk>', views.ContaAPIView.as_view, name='conta'),
 
-    path('cartao/', CartoesAPIView.as_view(), name='cartoes'),
-    path('cartao/<int:pk>', CartaoAPIView.as_view(), name='cartao'),
+    path('cartao/', views.CartoesAPIView.as_view(), name='cartoes'),
+    path('cartao/<int:pk>', views.CartaoAPIView.as_view(), name='cartao'),
 
-    path('movimentacao/', MovimentacoesAPIView.as_view(), name='movimentacoes'),
-    path('movimentacao/<int:pk>', MovimentacaoAPIView.as_view(), name='movimentacao'),
+    path('movimentacao/', views.MovimentacoesAPIView.as_view(), name='movimentacoes'),
+    path('movimentacao/<int:pk>', views.MovimentacaoAPIView.as_view(), name='movimentacao'),
 
-    path('investimento/', InvestimentosAPIView.as_view(), name='investimentos'),
-    path('investimento/<int:pk>', InvestimentoAPIView.as_view(), name='investimento'),
+    path('investimento/', views.InvestimentosAPIView.as_view(), name='investimentos'),
+    path('investimento/<int:pk>', views.InvestimentoAPIView.as_view(), name='investimento'),
 
-    path('emprestimo/', EmprestimosAPIView.as_view(), name='emprestimos'),
-    path('emprestimo/<int:pk>', EmprestimoAPIView.as_view(), name='emprestimo'),
+    path('emprestimo/', views.EmprestimosAPIView.as_view(), name='emprestimos'),
+    path('emprestimo/<int:pk>', views.EmprestimoAPIView.as_view(), name='emprestimo'),
 
-    path('parcelas/', EmpretimoParcelasAPIView.as_view(), name='parcelas'),
-    path('parcelas/<int:pk>', EmpretimoParcelaAPIView.as_view(), name='parcela'),
+    path('parcelas/', views.EmpretimoParcelasAPIView.as_view(), name='parcelas'),
+    path('parcelas/<int:pk>', views.EmpretimoParcelaAPIView.as_view(), name='parcela'),
 
     #==================================================================#
 
-
-
-
 ]
+"""
