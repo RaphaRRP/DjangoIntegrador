@@ -22,7 +22,7 @@ class MovimentacaoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movimentacao
         fields = [
-            'codigo', 'operacao', 'data_Hora', 'valor', 'Codigo_Cliente'
+            'codigo','data_Hora', 'valor', 'cliente_pagar', 'cliente_receber'
         ]
     
     def create(self, validated_data):

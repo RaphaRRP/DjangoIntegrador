@@ -25,26 +25,31 @@ class MovimentacaoViewSet(viewsets.ModelViewSet):
         
         valor_da_transacao = float(dados_da_transacao['valor'])
         
-        numero_da_conta = dados_da_transacao['Codigo_Cliente']
+        codigo_cliente_pagar = dados_da_transacao['cliente_pagar']
+        codigo_cliente_receber = dados_da_transacao['cliente_receber']
         
+        conta_pagar = get_object_or_404(Cliente, pk=codigo_cliente_pagar)
+        conta_receber = get_object_or_404(Cliente, pk=codigo_cliente_receber)
         
-        cliente_conta = get_object_or_404(Cliente, pk=numero_da_conta)
 
-        saldo = cliente_conta.saldo
+        saldo_cliente_pagar = conta_pagar.saldo
+        saldo_cliente_receber = conta_receber.saldo
 
-        
-        if saldo < (valor_da_transacao * -1): 
-            return Response({'movimentacao': f'não foi criada'}, status=403)
+
+        if saldo_cliente_pagar < valor_da_transacao : 
+            return Response({'movimentacao': f'não possui saldo suficiente'}, status=403)
     
         
         movimentacao = Movimentacao.objects.create(
-            operacao = "+",
-            valor= valor_da_transacao,
-            Codigo_Cliente = cliente_conta
+            valor = valor_da_transacao,
+            cliente_pagar = conta_pagar,
+            cliente_receber = conta_receber
         )
         
-        cliente_conta.saldo += valor_da_transacao
-        cliente_conta.save()
+        conta_pagar.saldo += valor_da_transacao
+        conta_receber.saldo -= valor_da_transacao
+        conta_pagar.save()
+        conta_receber.save()
         return Response({'movimentacao': f'criada com sucesso'}, status=status.HTTP_201_CREATED)
     
             
