@@ -5,7 +5,7 @@ class CLienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = [
-            'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura',     'rg', 'cpf_cnpj', 'cliente_tipo', 'cep', 'numero', 'email', 'saldo'
+            'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura','rg', 'cpf_cnpj', 'cliente_tipo', 'cep', 'numero', 'email', 'saldo'
         ]
 
 class CartaoSerializer(serializers.ModelSerializer):
@@ -18,18 +18,18 @@ class CartaoSerializer(serializers.ModelSerializer):
 
 class MovimentacaoSerializer(serializers.ModelSerializer):
 
-    Codigo_Cliente = serializers.CharField()
+    
     class Meta:
         model = Movimentacao
         fields = [
             'codigo','data_Hora', 'valor', 'cliente_pagar', 'cliente_receber'
         ]
     
-    def create(self, validated_data):
-        conta_cli = validated_data.pop('Codigo_Cliente')
-        cliente_instance = Cliente.objects.get_or_create(usuario=conta_cli)
-        transacao_instance = Movimentacao.objects.create(**validated_data, Codigo_Cliente=cliente_instance)
-        return transacao_instance
+    #def create(self, validated_data):
+    #    conta_cli = validated_data.pop('Codigo_Cliente')
+    #    cliente_instance = Cliente.objects.get_or_create(usuario=conta_cli)
+    #    transacao_instance = Movimentacao.objects.create(**validated_data, Codigo_Cliente=cliente_instance)
+    #    return transacao_instance
 
 
 class InvestimentoSerializer(serializers.ModelSerializer):

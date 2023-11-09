@@ -30,13 +30,9 @@ class MovimentacaoViewSet(viewsets.ModelViewSet):
         
         conta_pagar = get_object_or_404(Cliente, pk=codigo_cliente_pagar)
         conta_receber = get_object_or_404(Cliente, pk=codigo_cliente_receber)
-        
 
-        saldo_cliente_pagar = conta_pagar.saldo
-        saldo_cliente_receber = conta_receber.saldo
-
-
-        if saldo_cliente_pagar < valor_da_transacao : 
+        if conta_pagar.saldo <= valor_da_transacao : 
+            print('não possui saldo suficiente')
             return Response({'movimentacao': f'não possui saldo suficiente'}, status=403)
     
         
@@ -46,10 +42,13 @@ class MovimentacaoViewSet(viewsets.ModelViewSet):
             cliente_receber = conta_receber
         )
         
-        conta_pagar.saldo += valor_da_transacao
-        conta_receber.saldo -= valor_da_transacao
+        
+        conta_pagar.saldo -= valor_da_transacao
+        conta_receber.saldo += valor_da_transacao
+        
         conta_pagar.save()
         conta_receber.save()
+        print('deu certo')
         return Response({'movimentacao': f'criada com sucesso'}, status=status.HTTP_201_CREATED)
     
             

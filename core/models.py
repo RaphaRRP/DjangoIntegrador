@@ -43,7 +43,7 @@ class Cartao(models.Model):
         verbose_name_plural = 'Cartões'
 
     def __str__(self):
-        return self.bandeira
+        return str(self.pk)
     
 
 class Movimentacao(models.Model):
@@ -62,7 +62,7 @@ class Movimentacao(models.Model):
         verbose_name_plural = 'Movimentações'
 
     def __str__(self):
-        return self.operacao
+        return str(self.pk)
 
 
 class Investimento(models.Model):
@@ -80,7 +80,7 @@ class Investimento(models.Model):
         verbose_name_plural = 'Investimentos'
 
     def __str__(self):
-        return self.grauRisco
+        return str(self.pk)
 
     
 class Emprestimo(models.Model):
@@ -99,7 +99,7 @@ class Emprestimo(models.Model):
         verbose_name_plural = 'Emprestimos'
 
     def __str__(self):
-        return self.codigo
+        return str(self.pk)
     
 
 class EmprestimoParcela(models.Model):
@@ -118,4 +118,4 @@ class EmprestimoParcela(models.Model):
         verbose_name_plural = 'Parcelas'
 
     def __str__(self):
-        return self.codigo
+        return str(self.pk)
