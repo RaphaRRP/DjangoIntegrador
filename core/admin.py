@@ -4,7 +4,7 @@ from .models import *
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
     list_display = [
-            'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura','rg', 'cpf_cnpj', 'cliente_tipo', 'cep', 'numero', 'email', 'saldo'
+            'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura','rg', 'cpf_cnpj', 'cliente_tipo', 'cep', 'numero', 'email', 'saldo', 'emprestimo'
         ]
 
 @admin.register(Cartao)
@@ -28,14 +28,10 @@ class InvestimentoAdmin(admin.ModelAdmin):
 @admin.register(Emprestimo)
 class EmprestimoAdmin(admin.ModelAdmin):
     list_display = [
-            'codigo', 'juros', 'numero_parcela','valor_solicitado', 'Codigo_Cliente'
+            'codigo', 'valor_solicitado', 'Codigo_Cliente'
         ]
     
-@admin.register(EmprestimoParcela)
-class EmprestimoParcelaAdmin(admin.ModelAdmin):
-    list_display = [
-            'codigo', 'data_vencimento', 'valor_parcela', 'pago', 'Codigo_Emprestimo'
-        ]
+
     
 
     

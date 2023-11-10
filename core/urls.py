@@ -5,8 +5,10 @@ from .views import *
 
 router = SimpleRouter()
 router.register('cliente', ClienteViewSet)
+router.register('cartao', CartaoViewSet)
 router.register('movimentacao', MovimentacaoViewSet)
 router.register('investimento', InvestimentoViewSet)
 router.register('emprestimo', EmprestimoViewSet)
-router.register('parcela', EmpretimoParcelaViewSet)
+router.register('emprestimo-pagar', PagarEmprestimoViewSet)
+
 

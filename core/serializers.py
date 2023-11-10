@@ -25,12 +25,6 @@ class MovimentacaoSerializer(serializers.ModelSerializer):
             'codigo','data_Hora', 'valor', 'cliente_pagar', 'cliente_receber'
         ]
     
-    #def create(self, validated_data):
-    #    conta_cli = validated_data.pop('Codigo_Cliente')
-    #    cliente_instance = Cliente.objects.get_or_create(usuario=conta_cli)
-    #    transacao_instance = Movimentacao.objects.create(**validated_data, Codigo_Cliente=cliente_instance)
-    #    return transacao_instance
-
 
 class InvestimentoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -44,13 +38,10 @@ class EmprestimoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Emprestimo
         fields =  [
-            'codigo', 'juros', 'numero_parcela','valor_solicitado', 'Codigo_Cliente'
+            'codigo','valor_solicitado', 'Codigo_Cliente'
         ]
 
+class PagarSerializer(serializers.Serializer):
+    codigo = serializers.CharField()
 
-class EmprestimoParcelaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EmprestimoParcela
-        fields = [
-            'codigo', 'data_vencimento', 'valor_parcela', 'pago', 'Codigo_Emprestimo'
-        ]
+

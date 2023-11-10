@@ -20,6 +20,9 @@ class Cliente(models.Model):
     numero = models.CharField(max_length=15, null=True, blank=True)
     email = models.EmailField(max_length=50, null=True, blank=True)
     saldo = models.FloatField(null=True, blank=True)
+    emprestimo = models.FloatField(default=0, blank=True)
+
+
 
     class Meta:
         verbose_name = 'Cliente'
@@ -88,11 +91,9 @@ class Emprestimo(models.Model):
     #ID
     codigo = models.AutoField(primary_key=True) 
     #...
-    juros = models.DecimalField(decimal_places=2, max_digits=20)
-    numero_parcela = models.IntegerField()
     valor_solicitado = models.DecimalField(decimal_places=2, max_digits=20)
     #FK
-    Codigo_Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    Codigo_Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='emprestimo_cliente')
 
     class Meta:
         verbose_name = 'Emprestimo'
@@ -100,22 +101,4 @@ class Emprestimo(models.Model):
 
     def __str__(self):
         return str(self.pk)
-    
 
-class EmprestimoParcela(models.Model):
-
-    #ID
-    codigo = models.AutoField(primary_key=True) 
-    #...
-    data_vencimento = models.DateField()
-    valor_parcela = models.DecimalField(decimal_places=2, max_digits=20)
-    pago = models.BooleanField()
-    #FK
-    Codigo_Emprestimo = models.ForeignKey(Emprestimo, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Parcela'
-        verbose_name_plural = 'Parcelas'
-
-    def __str__(self):
-        return str(self.pk)
