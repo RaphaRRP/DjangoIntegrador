@@ -3,17 +3,14 @@ from rest_framework.permissions import IsAuthenticated
 from .models import *
 from .serializers import *
 from rest_framework.response import Response
-
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
+from .controle_tentativas import tentar
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = CLienteSerializer
-
-class CartaoViewSet(viewsets.ModelViewSet):
-    queryset = Cartao.objects.all()
-    serializer_class = CartaoSerializer
 
 class MovimentacaoViewSet(viewsets.ModelViewSet):
     
@@ -112,12 +109,44 @@ class PagarEmprestimoViewSet(viewsets.ModelViewSet):
     
         return Response({'Emprestimo': f'Emprestimo de {valor_emprestimo} Pago com sucesso!'}, status=201)
 
-        # conta_emprestimo = get_object_or_404(Cliente, pk=conta)
+
+class CartaoViewSet(viewsets.ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = cartaoSerializer
+
+    
+    def partial_update(self, request, *args, **kwargs):
+
+        conta = self.get_object()
+
+        if conta.cartao == True:
+            return Response({'Emprestimo': f'Só é possivel solicitar um cartão'}, status=403)
+
+        conta.cartao = True
+        conta.save()
+        return Response({'Cartão': f'Seu cartão foi solicitado com sucesso e chegará em sua residencia em breve! Cep: {conta.cep}'}, status=201)
+    
+
+
+class LoginViewSet(viewsets.ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = LoginSerializer
+    tentativas = 0
+
+    def create(self, request, *args, **kwargs):
         
-        # if conta_emprestimo.emprestimo > conta_emprestimo.saldo:
-        #     return Response({'Emprestimo': f'Não a saldo o suficiente para pagar o empréstimo'}, status=403)
 
-        #conta_emprestimo.emprestimo = 0
-        # conta_emprestimo.saldo -= conta_emprestimo.emprestimo
+        dados = request.data
+        usuario_inserido = dados['usuario']
+        senha_inserida = dados['senha']
+        codigo_inserido = dados['codigo']
 
-        # return Response({'Emprestimo': f'Emprestimo de {conta_emprestimo.emprestimo} Pago com sucesso!'}, status=201)
+        cliente_logar = get_object_or_404(Cliente, pk=codigo_inserido)
+
+        if usuario_inserido == cliente_logar.usuario and senha_inserida == cliente_logar.senha:
+            return Response({'Login': 'Sucesso','Codigo': f'{codigo_inserido}' ,'Usuario': f'{usuario_inserido}'}, status=201)
+
+        tentativas = tentar()
+        
+        return Response({f'Não foi possivel realizar o login {tentativas}'}, status=403)
+

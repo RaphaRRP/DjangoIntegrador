@@ -21,29 +21,11 @@ class Cliente(models.Model):
     email = models.EmailField(max_length=50, null=True, blank=True)
     saldo = models.FloatField(null=True, blank=True)
     emprestimo = models.FloatField(default=0, blank=True)
-
-
+    cartao = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Cliente'
-        verbose_name_plural = 'CLientes'
-
-    def __str__(self):
-        return str(self.pk)
-
-
-class Cartao(models.Model):
-
-    #ID
-    codigo = models.AutoField(primary_key=True) 
-    bandeira = models.CharField(max_length=20)#choice
-    validade = models.DateField()
-    #FK
-    Codigo_Cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name = 'Cartao'
-        verbose_name_plural = 'Cartões'
+        verbose_name_plural = 'Clientes'
 
     def __str__(self):
         return str(self.pk)

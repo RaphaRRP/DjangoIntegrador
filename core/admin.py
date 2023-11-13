@@ -4,13 +4,7 @@ from .models import *
 @admin.register(Cliente)
 class ClienteAdmin(admin.ModelAdmin):
     list_display = [
-            'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura','rg', 'cpf_cnpj', 'cliente_tipo', 'cep', 'numero', 'email', 'saldo', 'emprestimo'
-        ]
-
-@admin.register(Cartao)
-class CartaoAdmin(admin.ModelAdmin):
-    list_display = [
-            'codigo', 'bandeira', 'validade', 'Codigo_Cliente'
+            'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura','rg', 'cpf_cnpj', 'cliente_tipo', 'cep', 'numero', 'email', 'saldo', 'emprestimo', 'cartao'
         ]
     
 @admin.register(Movimentacao)

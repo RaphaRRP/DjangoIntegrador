@@ -5,20 +5,11 @@ class CLienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
         fields = [
-            'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura','rg', 'cpf_cnpj', 'cliente_tipo', 'cep', 'numero', 'email', 'saldo'
-        ]
-
-class CartaoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Cartao
-        fields = [
-            'codigo', 'bandeira', 'validade', 'Codigo_Cliente'
+            'codigo', 'usuario', 'foto_logo', 'senha', 'data_nascimento', 'data_abertura','rg', 'cpf_cnpj', 'cliente_tipo', 'cep', 'numero', 'email', 'saldo', 'cartao'
         ]
 
 
 class MovimentacaoSerializer(serializers.ModelSerializer):
-
-    
     class Meta:
         model = Movimentacao
         fields = [
@@ -43,5 +34,16 @@ class EmprestimoSerializer(serializers.ModelSerializer):
 
 class PagarSerializer(serializers.Serializer):
     codigo = serializers.CharField()
+
+class cartaoSerializer(serializers.Serializer):
+    codigo = serializers.CharField()
+
+class LoginSerializer(serializers.Serializer):
+    class Meta:
+        model = Cliente
+        fields = [
+            'codigo', 'usuario', 'senha'
+        ]
+    
 
 
