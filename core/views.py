@@ -5,7 +5,7 @@ from .serializers import *
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
-from .controle_tentativas import tentar
+from time import sleep
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
@@ -127,15 +127,14 @@ class CartaoViewSet(viewsets.ModelViewSet):
         return Response({'Cartão': f'Seu cartão foi solicitado com sucesso e chegará em sua residencia em breve! Cep: {conta.cep}'}, status=201)
     
 
-
+tentativas = 0
 class LoginViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = LoginSerializer
-    tentativas = 0
 
     def create(self, request, *args, **kwargs):
         
-
+        global tentativas 
         dados = request.data
         usuario_inserido = dados['usuario']
         senha_inserida = dados['senha']
@@ -144,9 +143,22 @@ class LoginViewSet(viewsets.ModelViewSet):
         cliente_logar = get_object_or_404(Cliente, pk=codigo_inserido)
 
         if usuario_inserido == cliente_logar.usuario and senha_inserida == cliente_logar.senha:
+            tentativas  = 0
             return Response({'Login': 'Sucesso','Codigo': f'{codigo_inserido}' ,'Usuario': f'{usuario_inserido}'}, status=201)
-
-        tentativas = tentar()
         
-        return Response({f'Não foi possivel realizar o login {tentativas}'}, status=403)
+        tentativas  += 1
+        print(tentativas )
+
+        if tentativas  > 3:
+            sleep(20)
+            return Response({'Não foi possivel realizar o login'}, status=403)
+    
+        if tentativas  == 1:
+            return Response({'Não foi possivel realizar o login, tentativas restantes: 3'}, status=403)
+        
+        if tentativas  == 2:
+            return Response({'Não foi possivel realizar o login, tentativas restantes: 2'}, status=403)
+        
+        if tentativas  == 3:
+            return Response({'Não foi possivel realizar o login, tentativas restantes: 1'}, status=403)
 

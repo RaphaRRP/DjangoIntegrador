@@ -1,27 +1,25 @@
 from django.db import models
 
-class Cliente(models.Model):
+def upload_image(instance, filename):
+    return f'{instance.codigo}-{filename}'
 
-    CLIENTE_TIPO_OPCOES = [['pessoa_física', 'pessoa_física'],
-                            ['pessoa_jurídica', 'pessoa_jurídica']]
+class Cliente(models.Model):
 
     #ID
     codigo = models.AutoField(primary_key=True) 
     #...
     usuario = models.CharField(max_length=10, null=True, blank=True)
-    foto_logo = models.CharField(max_length=100, null=True, blank=True)
     senha = models.IntegerField(null=True, blank=True)
-    data_nascimento = models.DateField(null=True, blank=True)
-    data_abertura = models.DateField(null=True, blank=True)
-    rg = models.CharField(max_length=15, null=True, blank=True)
+    data_abertura = models.DateField(null=True, blank=True, auto_now_add=True)
     cpf_cnpj = models.CharField(max_length=15, null=True, blank=True)
-    cliente_tipo = models.CharField(choices = CLIENTE_TIPO_OPCOES, max_length=47, null=True, blank=True)
     cep = models.CharField(max_length=10, null=True, blank=True)
     numero = models.CharField(max_length=15, null=True, blank=True)
     email = models.EmailField(max_length=50, null=True, blank=True)
     saldo = models.FloatField(null=True, blank=True)
     emprestimo = models.FloatField(default=0, blank=True)
     cartao = models.BooleanField(default=False)
+    image = models.ImageField(upload_to=upload_image, blank=True, null=True)
+
 
     class Meta:
         verbose_name = 'Cliente'
