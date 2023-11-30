@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import get_object_or_404
 from time import sleep
+from django.db.models import Q
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
@@ -16,6 +17,17 @@ class MovimentacaoViewSet(viewsets.ModelViewSet):
     
     queryset = Movimentacao.objects.all()
     serializer_class = MovimentacaoSerializer
+
+    def obter_movimentacoes_usuario(self, request, codigo=None):
+        # Obter o objeto Cliente com base no ID do usuário
+        cliente = get_object_or_404(Cliente, pk=codigo)
+
+        # Consulta para obter todas as movimentações em que o cliente é pagador ou recebedor
+        movimentacoes = Movimentacao.objects.filter(cliente_pagar=cliente) | Movimentacao.objects.filter(cliente_receber=cliente)
+        
+        # Serializar e retornar os dados
+        serializer = self.get_serializer(movimentacoes, many=True)
+        return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
         dados_da_transacao = request.data 
