@@ -73,6 +73,8 @@ class EmprestimoViewSet(viewsets.ModelViewSet):
 
         dados_do_emprestimo = request.data
 
+        print(dados_do_emprestimo)
+
         valor_do_emprestimo = float(dados_do_emprestimo['valor_solicitado'])
 
         codigo_cliente_emprestimo = dados_do_emprestimo['Codigo_Cliente']

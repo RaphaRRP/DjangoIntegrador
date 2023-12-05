@@ -15,10 +15,10 @@ class Cliente(models.Model):
     cep = models.CharField(max_length=10, null=True, blank=True)
     numero = models.CharField(max_length=15, null=True, blank=True)
     email = models.EmailField(max_length=50, null=True, blank=True)
-    saldo = models.FloatField(null=True, blank=True)
+    saldo = models.FloatField(default=1000, blank=True)
     emprestimo = models.FloatField(default=0, blank=True)
     cartao = models.BooleanField(default=False)
-    image = models.ImageField(upload_to=upload_image, blank=True, null=True)
+    image = models.CharField(blank=True, null=True, max_length=255)
 
 
     class Meta:
